@@ -17,6 +17,8 @@ public class InMemoryCuisinesRegistryTest {
         cuisinesRegistry.register(new Customer("1"), new Cuisine("french"));
         cuisinesRegistry.register(new Customer("2"), new Cuisine("german"));
         cuisinesRegistry.register(new Customer("3"), new Cuisine("italian"));
+        cuisinesRegistry.register(new Customer("2"), new Cuisine("french"));
+        cuisinesRegistry.register(new Customer("1"), new Cuisine("german"));
 
         cuisinesRegistry.cuisineCustomers(new Cuisine("french"));
     }
@@ -31,20 +33,30 @@ public class InMemoryCuisinesRegistryTest {
         cuisinesRegistry.customerCuisines(null);
     }
 
-//    @Test(expected = RuntimeException.class)
-//    public void thisDoesntWorkYet() {
-//        cuisinesRegistry.topCuisines(1);
-//    }
-
     @Test
     public void topCuisines() throws ApplicationException {
         shouldWork1();
-        cuisinesRegistry.register(new Customer("2"), new Cuisine("french"));
-        cuisinesRegistry.register(new Customer("1"), new Cuisine("german"));
         List<Cuisine> cuisineList =cuisinesRegistry.topCuisines(2);
         assertTrue(cuisineList.size()==2);
         assertTrue(cuisineList.contains(new Cuisine("french")));
         assertTrue(cuisineList.contains(new Cuisine("german")));
+    }
+    @Test
+    public void cuisineCustomers() throws ApplicationException {
+        shouldWork1();
+        List<Customer> customerList = cuisinesRegistry.cuisineCustomers(new Cuisine("french"));
+        assertTrue(customerList.contains(new Customer("2")));
+        assertTrue(customerList.contains(new Customer("2")));
+        assertTrue(!customerList.contains(new Customer("3")));
+    }
+
+    @Test
+    public void customerCuisines() throws ApplicationException {
+        shouldWork1();
+        List<Cuisine> cuisineList = cuisinesRegistry.customerCuisines(new Customer("1"));
+        assertTrue(cuisineList.contains(new Cuisine("french")));
+        assertTrue(cuisineList.contains(new Cuisine("german")));
+        assertTrue(!cuisineList.contains(new Cuisine("italian")));
     }
 
 

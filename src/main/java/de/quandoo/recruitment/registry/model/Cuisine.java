@@ -9,6 +9,9 @@ import java.util.Set;
 public class Cuisine {
 
     private final String name;
+    /**
+     * I used Set, duo to it prevents adding redundant data
+     */
     private Set<Customer> customerSet = new HashSet<>();
     public Cuisine(final String name) throws ApplicationException {
         if(name==null)

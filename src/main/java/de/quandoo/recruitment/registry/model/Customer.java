@@ -8,8 +8,10 @@ import java.util.Set;
 
 public class Customer {
     private final String uuid;
+    /**
+     * I used Set, duo to it prevents adding redundant data
+     */
     private Set<Cuisine> cuisineSet = new HashSet<>();
-
     public Customer(final String uuid) throws ApplicationException {
         if(uuid == null)
             throw new ApplicationException("uuid could not be null");
